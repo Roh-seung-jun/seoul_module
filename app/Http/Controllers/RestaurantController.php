@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Information;
+use App\Review;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
@@ -44,5 +45,31 @@ class RestaurantController extends Controller
         $input['people'] = $request['people'];
         Information::create($input);
         return redirect('/restaurant')->with('msg','정상적으로 예약되었습니다.');
+    }
+    public function joinPage(Request $request){
+        $list = [];
+        if($request->all()){
+            $list = Information::where('email',$request['email'])->where('pw',$request['pw'])->get();
+            if($list->count() === 0) return redirect('/restaurant/join')->with('이메일 또는 비밀번호가 틀렸습니다.');
+        }
+        return view('join',compact(['list']));
+    }
+    public function QAPage(){
+        $list = Review::all();
+        return view('QA',compact(['list']));
+    }
+    public function review(Request $request){
+        $find = Information::where('email',$request['email'])->where('pw',$request['pw'])->get();
+        if($find->count() === 0) return back()->with('msg','예약한 사람만 입력가능합니다.');
+        $input = $request->only(['title','contents']);
+        $input['information_id'] = $find[0]['id'];
+        $input['restaurant'] = $find[0]['restaurant'];
+        Review::create($input);
+
+        return redirect('/restaurant/QA')->with('정상적으로 등록되었습니다.');
+    }
+    public function viewPage($id){
+        $data = Review::find($id);
+        return view('view',compact(['data']));
     }
 }

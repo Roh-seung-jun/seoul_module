@@ -38,6 +38,12 @@
                 }
             })
         })
+
+        function check(){
+            let check = confirm('정말로 삭제하시겠습니까?');
+            if(check) return location.href = '/restaurant';
+        }
+
     </script>
 @endsection
 
@@ -75,6 +81,8 @@
             <p class="m-0">비밀번호</p>
             <input type="text" name="pw" class="form-control" id="pw">
         </div>
+        <button class="btn btn-outline-success" onclick="check()" type="button">취소</button>
+        <button class="btn btn-outline-success" onclick="history.back()" type="button">수정</button>
         <button class="btn btn-outline-success">신청</button>
     </form>
 @endsection

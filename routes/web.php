@@ -19,6 +19,10 @@ Route::get('/restaurant', function () {
 
 Route::get('/restaurant/write','RestaurantController@writePage')->name('write');
 Route::get('/restaurant/check','RestaurantController@checkPage')->name('check');
+Route::get('/restaurant/join','RestaurantController@joinPage')->name('join');
+Route::get('/restaurant/QA','RestaurantController@QAPage')->name('QA');
+Route::get('/restaurant/QA/{id}','RestaurantController@viewPage')->name('view');
 
 
 Route::post('/application','RestaurantController@application')->name('application');
+Route::post('/review','RestaurantController@review')->name('review');

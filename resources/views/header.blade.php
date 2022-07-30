@@ -18,7 +18,7 @@
             alert('{{$errors->first()}}');
     @endif
     @if(session()->has('msg'))
-        alert('{{session()->a}}');
+        alert('{{session()->get('msg')}}');
     @endif
 
     </script>
